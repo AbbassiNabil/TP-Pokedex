@@ -1,5 +1,5 @@
 const pokemonContainer = document.getElementById("carosello");
-
+//recherche 300 pokemon dans l api
 function getPokemon() {
   fetch("https://pokeapi.co/api/v2/pokemon?limit=300")
     .then((response) => {
@@ -12,7 +12,7 @@ function getPokemon() {
       });
     });
 }
-
+// creation des cartes
 function pokemonCard(url) {
   fetch(url)
     .then((response) => {
@@ -59,5 +59,5 @@ function pokemonCard(url) {
       pokemonContainer.appendChild(card);
     });
 }
-
+//rappelle function de recherche dan l api
 getPokemon();

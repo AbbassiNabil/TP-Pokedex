@@ -1,7 +1,7 @@
 const serchInput = document.getElementById("search-input");
 const serchBtn = document.getElementById("search-btn");
 const container = document.getElementById("pokemon-container");
-
+// creation de la carte pokemon
 function createPokemonCard(data) {
   container.textContent = "";
 
@@ -26,7 +26,7 @@ function createPokemonCard(data) {
   btnDetails.style.padding = "10px";
   btnDetails.style.backgroundColor = "red";
   btnDetails.style.color = "white";
-
+  // button qui renvoi a la page details
   btnDetails.addEventListener("click", () => {
     window.location.href = `details.html?id=${data.id}`;
   });
@@ -45,10 +45,9 @@ function createPokemonCard(data) {
   container.appendChild(card);
 }
 
+//recherche dans l api et je reutilise ma function precedent "createPokemonCard"
 function searchPokemon() {
   const value = serchInput.value.toLowerCase();
-
-  if (value === "") return;
 
   fetch("https://pokeapi.co/api/v2/pokemon/" + value)
     .then((response) => {

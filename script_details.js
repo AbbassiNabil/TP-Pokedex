@@ -1,18 +1,17 @@
 const infoContainer = document.getElementById("pokemon-details");
-
+//j utilise le BOM pour recuperer des info dans l URL
 const params = new URLSearchParams(window.location.search);
 const pokemonId = params.get("id");
 
-if (pokemonId) {
-  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
-    .then((response) => {
-      return response.json();
-    })
-    .then((pokemon) => {
-      renderDetails(pokemon);
-    });
-}
-
+//je recherche dans l api avec les info recupere
+fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+  .then((response) => {
+    return response.json();
+  })
+  .then((pokemon) => {
+    renderDetails(pokemon);
+  });
+//creation contenu de la page
 function renderDetails(p) {
   const img = document.createElement("img");
   img.src = p.sprites.other["official-artwork"].front_default;
