@@ -13,9 +13,9 @@ function createPokemonCard(data) {
   nom.textContent = data.name.toUpperCase() + " #" + data.id;
 
   const img = document.createElement("img");
-  img.src = data.sprites.front_default;
+  img.src = data.sprites.other["official-artwork"].front_default;
   img.alt = data.name;
-  img.style.width = "300px";
+  img.style.width = "200px";
 
   const type = document.createElement("p");
 
@@ -27,13 +27,15 @@ function createPokemonCard(data) {
   btnDetails.style.backgroundColor = "red";
   btnDetails.style.color = "white";
 
-  btnDetails.addEventListener("click", () => showDetails(pokemonData));
+  btnDetails.addEventListener("click", () => {
+    window.location.href = `details.html?id=${data.id}`;
+  });
 
   const btnTeam = document.createElement("button");
   btnTeam.textContent = "Ajouter à l'equipe";
   btnTeam.style.padding = "10px";
   btnTeam.style.backgroundColor = "white";
-  btnTeam.addEventListener("click", () => addToTeam(pokemonData.name));
+  btnTeam.addEventListener("click", () => {});
 
   card.appendChild(btnDetails);
   card.appendChild(btnTeam);
