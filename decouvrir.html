@@ -1,64 +1,120 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decouvrir les pokemon</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discover the Pokémon</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script_common.js" defer></script>
     <script src="script_decouvrir.js" defer></script>
-    <link rel="stylesheet" href="style_decuvrir.css">
-</head>
-<body>
-
+  </head>
+  <body>
     <header>
+      <nav id="nav">
+        <a href="index.html" id="logo"
+          ><img src="Logo_Pokedex.svg" alt="Pokedex logo"
+        /></a>
 
-        <nav>
-            <div class="container" id="nav">
-                <a href="index.html"><img src="Logo_Pokedex.svg" alt="Logo Psidack"></a>
-                
-
-                <div id="la_nav">
-                    <a href="pokedex.html">Mon Pokedex</a>
-
-                    <a href="decouvrir.html">Découvrir les Pokemon</a>
-
-                    
-                </div>
-            </div>
-        </nav>
-
+        <div id="nav-links">
+          <a href="decouvrir.html" class="active">Discover</a>
+          <a href="pokedex.html">
+            My Pokédex <span class="team-badge"></span>
+          </a>
+        </div>
+      </nav>
     </header>
-    
+
     <main>
-        <section id="zf">
+      <nav class="breadcrumb container" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li aria-current="page">Discover</li>
+        </ol>
+      </nav>
 
-            <span>
+      <section class="page-title">
+        <h1>Gotta catch 'em all!</h1>
+        <p>All the Pokémon, or only those of a region, a rarity and a power.</p>
+      </section>
 
-                <h1>Attrapez-les tous !</h1>
+      <section class="container filters" aria-label="Filters">
+        <label>
+          Region
+          <select id="region-filter">
+            <option value="">All regions</option>
+            <option value="kanto">Kanto</option>
+            <option value="johto">Johto</option>
+            <option value="hoenn">Hoenn</option>
+            <option value="sinnoh">Sinnoh</option>
+            <option value="unova">Unova</option>
+            <option value="kalos">Kalos</option>
+            <option value="alola">Alola</option>
+            <option value="galar">Galar</option>
+            <option value="paldea">Paldea</option>
+          </select>
+        </label>
 
-                
+        <label>
+          Rarity
+          <select id="rarity-filter" disabled>
+            <option value="">All</option>
+            <option value="common">Common</option>
+            <option value="baby">Baby</option>
+            <option value="legendary">Legendary</option>
+            <option value="mythical">Mythical</option>
+          </select>
+        </label>
 
-            </span>
+        <label>
+          Power
+          <select id="power-filter" disabled>
+            <option value="">All</option>
+            <option value="0-299">Weak (under 300)</option>
+            <option value="300-449">Medium (300 - 449)</option>
+            <option value="450-579">Strong (450 - 579)</option>
+            <option value="580-9999">Very strong (580+)</option>
+          </select>
+        </label>
 
-        </section>
+        <p id="filter-hint">Choose a region to filter by rarity or power.</p>
+      </section>
 
-
-       
-
-        <section id="carosello" class="container">
-            
-        </section>
-
+      <section class="container">
+        <div id="carosello" class="card-grid"></div>
+        <button id="load-more" class="btn btn-red">Load more</button>
+      </section>
     </main>
 
     <footer>
-
-        <div class="container">
-
-            <span>Abbassi Nabil  Tout droit reserve 2026</span>
-
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <img src="Logo_Pokedex.svg" alt="Pokedex logo" />
+          <p>Search, discover and collect your favourite Pokémon.</p>
         </div>
 
-    </footer> 
-    
-</body>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="decouvrir.html">Discover</a></li>
+            <li><a href="pokedex.html">My Pokédex</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>About</h3>
+          <p>
+            Data and images come from
+            <a href="https://pokeapi.co/" target="_blank" rel="noopener"
+              >PokéAPI</a
+            >.
+          </p>
+        </div>
+      </div>
+
+      <p class="container copyright">
+        © 2026 Abbassi Nabil. All rights reserved.
+      </p>
+    </footer>
+  </body>
 </html>

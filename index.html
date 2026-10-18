@@ -1,65 +1,351 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokedex</title>
-    <link rel="stylesheet" href="style_index.css">
+    <link rel="stylesheet" href="style.css" />
+    <script src="script_common.js" defer></script>
     <script src="script_index.js" defer></script>
-
-    </head>
-<body>
+  </head>
+  <body>
     <header>
+      <nav id="nav">
+        <a href="index.html" id="logo"
+          ><img src="Logo_Pokedex.svg" alt="Pokedex logo"
+        /></a>
 
-        <nav>
-            <div class="container" id="nav">
-                <a href="index.html"><img src="Logo_Pokedex.svg" alt="Logo Psidack"></a>
+        <div id="nav-links">
+          <a href="decouvrir.html">Discover</a>
+          <a href="pokedex.html">
+            My Pokédex <span class="team-badge"></span>
+          </a>
+        </div>
 
-                <div id="la_nav">
-                    <a href="pokedex.html">Mon Pokedex</a>
-
-                    <a href="decouvrir.html">Decouvrir les Pokemon</a>
-
-                    <fieldset>
-
-                        <label for="nom">Recherche :</label>
-                        <input type="text" placeholder=" Nom ou Numero" id="search-input" >
-                        <button id="search-btn">Recherche</button>
-
-                    </fieldset>
-
-                </div>
-            </div>
-        </nav>
-
+        <form id="search-form" role="search">
+          <label for="search-input" class="visually-hidden"
+            >Search a Pokémon</label
+          >
+          <input type="text" placeholder="Name or number" id="search-input" />
+          <button type="submit" id="search-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle
+                cx="10.5"
+                cy="10.5"
+                r="6.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              />
+              <line
+                x1="15.5"
+                y1="15.5"
+                x2="21"
+                y2="21"
+                stroke="currentColor"
+                stroke-width="2.5"
+              />
+            </svg>
+          </button>
+        </form>
+      </nav>
     </header>
 
     <main>
+      <section id="hero">
+        <img src="cloud.svg" alt="" class="cloud" id="cloud1" />
+        <img src="cloud.svg" alt="" class="cloud" id="cloud2" />
+        <img src="cloud.svg" alt="" class="cloud" id="cloud3" />
+        <img src="cloud.svg" alt="" class="cloud" id="cloud4" />
 
-        <img src="bella nuvola.svg" alt="nuvola" id="nuv1">
-        <img src="bella nuvola.svg" alt="nuvola" id="nuv2">
-        <img src="bella nuvola.svg" alt="nuvola" id="nuv3">
-        <section id="zf">
-            <span>
-                <h1>Attrapez-les tous !</h1>
-                
-            </span>
+        <!-- pokemon qui volent entre les nuages (images animées de PokéAPI), chacun ouvre sa fiche -->
+        <a
+          class="flyer"
+          id="lugia"
+          href="details.html?id=249"
+          aria-label="See Lugia details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/249.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="ho-oh"
+          href="details.html?id=250"
+          aria-label="See Ho-Oh details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/250.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="latias"
+          href="details.html?id=380"
+          aria-label="See Latias details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/380.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="latios"
+          href="details.html?id=381"
+          aria-label="See Latios details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/381.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="rayquaza"
+          href="details.html?id=384"
+          aria-label="See Rayquaza details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/384.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="articuno"
+          href="details.html?id=144"
+          aria-label="See Articuno details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/144.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="zapdos"
+          href="details.html?id=145"
+          aria-label="See Zapdos details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/145.gif"
+            alt=""
+          />
+        </a>
+        <a
+          class="flyer"
+          id="moltres"
+          href="details.html?id=146"
+          aria-label="See Moltres details"
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/146.gif"
+            alt=""
+          />
+        </a>
+
+        <h1>Gotta catch 'em all!</h1>
+        <p>Search a Pokémon by its name or its number with the search bar.</p>
+
+        <div id="pokemon-container"></div>
+      </section>
+
+      <!-- prairie : pokemon (légendaires de Kanto et Johto et pokemon connus) éparpillés autour de la présentation du site -->
+      <div id="meadow">
+        <a href="details.html?id=150" aria-label="See Mewtwo details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/150.gif"
+            alt="Mewtwo"
+            class="meadow-pokemon"
+            id="mewtwo"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=243" aria-label="See Raikou details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/243.gif"
+            alt="Raikou"
+            class="meadow-pokemon"
+            id="raikou"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=244" aria-label="See Entei details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/244.gif"
+            alt="Entei"
+            class="meadow-pokemon"
+            id="entei"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=245" aria-label="See Suicune details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/245.gif"
+            alt="Suicune"
+            class="meadow-pokemon"
+            id="suicune"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=151" aria-label="See Mew details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/151.gif"
+            alt="Mew"
+            class="meadow-pokemon"
+            id="mew"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=6" aria-label="See Charizard details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/6.gif"
+            alt="Charizard"
+            class="meadow-pokemon"
+            id="charizard"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=25" aria-label="See Pikachu details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/25.gif"
+            alt="Pikachu"
+            class="meadow-pokemon"
+            id="pikachu"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=39" aria-label="See Jigglypuff details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/39.gif"
+            alt="Jigglypuff"
+            class="meadow-pokemon"
+            id="jigglypuff"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=143" aria-label="See Snorlax details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/143.gif"
+            alt="Snorlax"
+            class="meadow-pokemon"
+            id="snorlax"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=4" aria-label="See Charmander details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/4.gif"
+            alt="Charmander"
+            class="meadow-pokemon"
+            id="charmander"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=1" aria-label="See Bulbasaur details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/1.gif"
+            alt="Bulbasaur"
+            class="meadow-pokemon"
+            id="bulbasaur"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=7" aria-label="See Squirtle details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/7.gif"
+            alt="Squirtle"
+            class="meadow-pokemon"
+            id="squirtle"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=133" aria-label="See Eevee details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/133.gif"
+            alt="Eevee"
+            class="meadow-pokemon"
+            id="eevee"
+            loading="lazy"
+        /></a>
+        <a href="details.html?id=54" aria-label="See Psyduck details"
+          ><img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/54.gif"
+            alt="Psyduck"
+            class="meadow-pokemon"
+            id="psyduck"
+            loading="lazy"
+        /></a>
+
+        <section class="intro container">
+          <article>
+            <img
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+              alt="Pikachu"
+              loading="lazy"
+            />
+            <h2>Search</h2>
+            <p>
+              Type a name (pikachu) or a number (25) in the search bar to find a
+              Pokémon in a second.
+            </p>
+          </article>
+
+          <article>
+            <img
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+              alt="Bulbasaur"
+              loading="lazy"
+            />
+            <h2>Discover</h2>
+            <p>
+              Browse all the Pokémon in order, open their details and learn
+              their types and statistics.
+            </p>
+            <a href="decouvrir.html" class="btn btn-red"
+              >Discover the Pokémon</a
+            >
+          </article>
+
+          <article>
+            <img
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"
+              alt="Charizard"
+              loading="lazy"
+            />
+            <h2>My Pokédex</h2>
+            <p>
+              Build your dream team of up to 6 Pokémon. It is saved in your
+              browser for your next visit.
+            </p>
+            <a href="pokedex.html" class="btn btn-red">See my team</a>
+          </article>
         </section>
-
-        <section  id="pokemon-container" class="container">
-            
-        </section>
-
+      </div>
     </main>
 
     <footer>
-
-        <div class="container">
-
-            <span>Abbassi Nabil  Tout droit reserve 2026</span>
-
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <img src="Logo_Pokedex.svg" alt="Pokedex logo" />
+          <p>Search, discover and collect your favourite Pokémon.</p>
         </div>
 
-    </footer> 
-</body>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="decouvrir.html">Discover</a></li>
+            <li><a href="pokedex.html">My Pokédex</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>About</h3>
+          <p>
+            Data and images come from
+            <a href="https://pokeapi.co/" target="_blank" rel="noopener"
+              >PokéAPI</a
+            >.
+          </p>
+        </div>
+      </div>
+
+      <p class="container copyright">
+        © 2026 Abbassi Nabil. All rights reserved.
+      </p>
+    </footer>
+  </body>
 </html>

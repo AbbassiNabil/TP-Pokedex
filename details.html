@@ -1,46 +1,69 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex - Details</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script_common.js" defer></script>
     <script src="script_details.js" defer></script>
-    <link rel="stylesheet" href="style_details.css">
-</head>
-<body>
-    
+  </head>
+  <body>
     <header>
+      <nav id="nav">
+        <a href="index.html" id="logo"
+          ><img src="Logo_Pokedex.svg" alt="Pokedex logo"
+        /></a>
 
-        <nav>
-            <div class="container" id="nav">
-                <a href="index.html"><img src="Logo_Pokedex.svg" alt="Logo Psidack"></a>
-
-                <div id="la_nav">
-                    <a href="pokedex.html">Mon Pokedex</a>
-
-                    <a href="decouvrir.html">Découvrir les Pokémon</a>
-
-                    
-
-                </div>
-            </div>
-        </nav>
-
+        <div id="nav-links">
+          <a href="decouvrir.html">Discover</a>
+          <a href="pokedex.html">
+            My Pokédex <span class="team-badge"></span>
+          </a>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <section id="pokemon-details" class="container"></section>
+      <nav
+        id="breadcrumb"
+        class="breadcrumb container"
+        aria-label="Breadcrumb"
+      ></nav>
+
+      <section id="pokemon-details" class="container"></section>
     </main>
 
     <footer>
-
-        <div class="container">
-
-            <span>Abbassi Nabil  Tout droit reserve 2026</span>
-
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <img src="Logo_Pokedex.svg" alt="Pokedex logo" />
+          <p>Search, discover and collect your favourite Pokémon.</p>
         </div>
 
-    </footer> 
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="decouvrir.html">Discover</a></li>
+            <li><a href="pokedex.html">My Pokédex</a></li>
+          </ul>
+        </div>
 
-</body>
+        <div>
+          <h3>About</h3>
+          <p>
+            Data and images come from
+            <a href="https://pokeapi.co/" target="_blank" rel="noopener"
+              >PokéAPI</a
+            >.
+          </p>
+        </div>
+      </div>
+
+      <p class="container copyright">
+        © 2026 Abbassi Nabil. All rights reserved.
+      </p>
+    </footer>
+  </body>
 </html>

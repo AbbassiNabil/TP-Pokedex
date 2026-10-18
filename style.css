@@ -1,0 +1,1275 @@
+/* feuille de style unique du site : styles communs puis styles de chaque page */
+
+/* police Lato hébergée dans le projet (dossier fonts/), sans dépendre de Google Fonts */
+@font-face {
+  font-family: "Lato";
+  src: url(fonts/lato-400.woff2) format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url(fonts/lato-700.woff2) format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* couleurs et ombres utilisées dans tout le site */
+:root {
+  --yellow: #dfbd29;
+  --sky: #c7f3f3;
+  --cloud: #45aab8;
+  --red: #d62f2f;
+  --text: #1e1e1e;
+  --muted: #5d6466;
+  --card: #ffffff;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+/* le pied de page reste en bas même quand la page est courte */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--sky);
+  color: var(--text);
+}
+
+main {
+  flex: 1;
+}
+
+/* un élément caché reste caché même si une règle lui donne un display */
+[hidden] {
+  display: none !important;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- barre de navigation ---------- */
+
+/* fine ligne rouge sous le jaune, comme le bord d'une Pokéball */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--yellow);
+  border-bottom: 3px solid var(--red);
+  box-shadow: var(--shadow);
+}
+
+#nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 36px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6px 20px;
+}
+
+#logo img {
+  display: block;
+  height: 52px;
+}
+
+/* les liens sont poussés à droite du logo */
+#nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: auto;
+}
+
+#nav-links a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* soulignement qui s'élargit de gauche à droite au survol */
+#nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+
+/* page actuelle mise en évidence dans le menu */
+#nav-links a:hover::after,
+#nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+/* compteur de l'équipe (rempli par script_common.js) */
+.team-badge {
+  padding: 2px 7px;
+  background-color: var(--red);
+  color: white;
+  font-size: 13px;
+}
+
+/* barre de recherche (page d'accueil) : champ et bouton loupe collés */
+#search-form {
+  display: flex;
+}
+
+#search-input {
+  width: 200px;
+  padding: 8px 12px;
+  border: 2px solid var(--text);
+  border-right: none;
+  font-size: 15px;
+}
+
+#search-input:focus {
+  background-color: #fffbe6;
+}
+
+#search-btn {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border: 2px solid var(--text);
+  background-color: var(--text);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#search-btn:hover {
+  background-color: var(--red);
+  border-color: var(--red);
+}
+
+/* texte caché à l'écran mais lu par les lecteurs d'écran */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- boutons ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid var(--text);
+  background-color: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.btn:hover {
+  background-color: var(--text);
+  color: white;
+}
+
+.btn-red {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+.btn-red:hover {
+  background-color: #a81f1f;
+  border-color: #a81f1f;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  background-color: var(--card);
+  color: var(--text);
+}
+
+/* ---------- fil d'Ariane (Home / Discover / Pikachu) ---------- */
+
+.breadcrumb {
+  padding-top: 20px;
+  font-size: 15px;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* séparateur "/" entre les étapes (pas de flèches) */
+.breadcrumb li + li::before {
+  content: "/";
+  margin-right: 8px;
+  color: var(--muted);
+}
+
+.breadcrumb a {
+  color: var(--muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* page actuelle */
+.breadcrumb [aria-current="page"] {
+  font-weight: 700;
+}
+
+/* ---------- bouton "Back to top" ---------- */
+
+/* caché en haut de la page, il apparaît en fondu (classe ajoutée par script_common.js) */
+#top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background-color: var(--red);
+  color: white;
+  box-shadow: var(--shadow-hover);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s,
+    visibility 0.25s,
+    background-color 0.2s;
+}
+
+#top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#top-btn:hover {
+  background-color: var(--text);
+}
+
+/* ---------- titres de page ---------- */
+
+.page-title {
+  text-align: center;
+  padding: 30px 20px 30px;
+}
+
+.page-title h1 {
+  font-size: 46px;
+}
+
+.page-title p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+/* ---------- cartes Pokémon ---------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 24px;
+}
+
+.pokemon-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  /* fond de la couleur du premier type, un peu plus foncé */
+  background-color: color-mix(in srgb, var(--type-color) 85%, black);
+  border: 10px solid var(--yellow);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+/* au survol, la carte se soulève et l'image s'agrandit un peu */
+.pokemon-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* fond de l'image : version claire de la couleur du premier type */
+.card-image {
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: color-mix(in srgb, var(--type-color) 25%, white);
+}
+
+.card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transition: transform 0.25s;
+}
+
+.pokemon-card:hover .card-image img {
+  transform: scale(1.08);
+}
+
+/* pas de mouvement si l'utilisateur a demandé moins d'animations */
+@media (prefers-reduced-motion: reduce) {
+  .pokemon-card,
+  .card-image img {
+    transition: none;
+  }
+
+  .pokemon-card:hover,
+  .pokemon-card:hover .card-image img {
+    transform: none;
+  }
+}
+
+/* numéro et nom en blanc pour rester lisibles sur le fond coloré */
+.pokemon-card .number,
+.pokemon-card h2 {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.pokemon-card .number {
+  font-size: 14px;
+}
+
+.pokemon-card h2 {
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+/* type électrique : jaune vif (non assombri) pour se distinguer du bord doré,
+   avec le texte foncé pour rester lisible */
+.pokemon-card.type-electric {
+  background-color: #ffe11a;
+}
+
+.pokemon-card.type-electric .number,
+.pokemon-card.type-electric h2 {
+  color: var(--text);
+  text-shadow: none;
+}
+
+/* puissance (total des statistiques) */
+.pokemon-card .power {
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.pokemon-card.type-electric .power {
+  color: var(--text);
+  text-shadow: none;
+}
+
+/* étiquette de rareté (baby, legendary, mythical) */
+.rarity {
+  padding: 3px 10px;
+  background-color: var(--text);
+  color: #ffe11a;
+  outline: 2px solid white;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* contour blanc pour que les étiquettes ne se confondent pas avec le fond */
+.pokemon-card .type {
+  outline: 2px solid white;
+}
+
+.pokemon-card .types {
+  gap: 8px;
+  padding: 2px;
+}
+
+.pokemon-card .btn {
+  width: 100%;
+}
+
+/* étiquettes des types */
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.type {
+  padding: 3px 10px;
+  background-color: var(--type-color);
+  color: var(--type-text);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* couleur de chaque type (étiquettes et fond de l'image des cartes) ;
+   texte foncé par défaut, blanc sur les couleurs sombres */
+[class*="type-"] {
+  --type-color: #c4c4c4;
+  --type-text: var(--text);
+}
+
+.type-normal {
+  --type-color: #a8a77a;
+}
+
+.type-fire {
+  --type-color: #ee8130;
+}
+
+.type-water {
+  --type-color: #6390f0;
+}
+
+.type-electric {
+  --type-color: #f7d02c;
+}
+
+.type-grass {
+  --type-color: #7ac74c;
+}
+
+.type-ice {
+  --type-color: #96d9d6;
+}
+
+.type-fighting {
+  --type-color: #c22e28;
+  --type-text: white;
+}
+
+.type-poison {
+  --type-color: #a33ea1;
+  --type-text: white;
+}
+
+.type-ground {
+  --type-color: #e2bf65;
+}
+
+.type-flying {
+  --type-color: #a98ff3;
+}
+
+.type-psychic {
+  --type-color: #f95587;
+}
+
+.type-bug {
+  --type-color: #a6b91a;
+}
+
+.type-rock {
+  --type-color: #b6a136;
+}
+
+.type-ghost {
+  --type-color: #735797;
+  --type-text: white;
+}
+
+.type-dragon {
+  --type-color: #6f35fc;
+  --type-text: white;
+}
+
+.type-dark {
+  --type-color: #705746;
+  --type-text: white;
+}
+
+.type-steel {
+  --type-color: #b7b7ce;
+}
+
+.type-fairy {
+  --type-color: #d685ad;
+}
+
+/* messages (chargement, aucun résultat, erreur) sur toute la largeur de la grille */
+.message {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 18px;
+  padding: 30px 0;
+}
+
+/* ---------- page d'accueil ---------- */
+
+/* le bandeau remplit tout l'écran sous la barre de navigation (67 px de haut) ;
+   titre, sous-titre et résultat sont centrés en hauteur */
+#hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 67px);
+  min-height: calc(100svh - 67px);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* le texte et le résultat restent devant les nuages */
+#hero h1 {
+  position: relative;
+  z-index: 1;
+  font-size: 56px;
+}
+
+#hero > p {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  font-size: 20px;
+  color: var(--muted);
+}
+
+/* nuages qui traversent le bandeau de droite à gauche, en boucle */
+.cloud {
+  position: absolute;
+  left: 100%;
+  animation: drift linear infinite;
+}
+
+/* départ juste à droite de l'écran, arrivée juste à gauche */
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100vw - 100%));
+  }
+}
+
+/* tailles, hauteurs et vitesses différentes ; les délais négatifs placent
+   les nuages au milieu de leur trajet dès l'ouverture de la page */
+#cloud1 {
+  top: 6%;
+  width: 230px;
+  animation-duration: 48s;
+  animation-delay: -8s;
+}
+
+#cloud2 {
+  top: 38%;
+  width: 170px;
+  animation-duration: 62s;
+  animation-delay: -40s;
+}
+
+#cloud3 {
+  top: 66%;
+  width: 270px;
+  animation-duration: 40s;
+  animation-delay: -26s;
+}
+
+#cloud4 {
+  top: 20%;
+  width: 120px;
+  opacity: 0.8;
+  animation-duration: 75s;
+  animation-delay: -60s;
+}
+
+/* pokemon volants : le cadre traverse l'écran comme les nuages,
+   l'image monte et descend doucement comme un battement d'ailes */
+.flyer {
+  position: absolute;
+  left: 100%;
+  animation: drift linear infinite;
+}
+
+.flyer img {
+  display: block;
+  width: 100%;
+  image-rendering: pixelated;
+  animation: flap 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes flap {
+  from {
+    transform: translateY(-14px);
+  }
+  to {
+    transform: translateY(14px);
+  }
+}
+
+#lugia {
+  top: 44%;
+  width: 200px;
+  animation-duration: 55s;
+  animation-delay: -40s;
+}
+
+#ho-oh {
+  top: 8%;
+  width: 190px;
+  animation-duration: 68s;
+  animation-delay: -45s;
+}
+
+/* Latias et Latios volent ensemble, Latios un peu derrière */
+#latias {
+  top: 70%;
+  width: 140px;
+  animation-duration: 30s;
+  animation-delay: -8s;
+}
+
+#latios {
+  top: 62%;
+  width: 155px;
+  animation-duration: 30s;
+  animation-delay: -6s;
+}
+
+#rayquaza {
+  top: 22%;
+  width: 190px;
+  animation-duration: 85s;
+  animation-delay: -70s;
+}
+
+/* les trois oiseaux légendaires de Kanto */
+#articuno {
+  top: 30%;
+  width: 170px;
+  animation-duration: 50s;
+  animation-delay: -30s;
+}
+
+#zapdos {
+  top: 54%;
+  width: 150px;
+  animation-duration: 42s;
+  animation-delay: -12s;
+}
+
+#moltres {
+  top: 14%;
+  width: 190px;
+  animation-duration: 60s;
+  animation-delay: -5s;
+}
+
+#ho-oh img {
+  animation-duration: 3s;
+}
+
+#rayquaza img {
+  animation-duration: 3.5s;
+}
+
+/* au survol (ou au clavier), le pokemon s'arrête et grossit un peu pour être cliqué facilement */
+.flyer:hover,
+.flyer:focus-visible,
+.flyer:hover img,
+.flyer:focus-visible img {
+  animation-play-state: paused;
+}
+
+.flyer img,
+.meadow-pokemon {
+  transition: scale 0.2s;
+}
+
+.flyer:hover img,
+.flyer:focus-visible img,
+a:hover > .meadow-pokemon,
+a:focus-visible > .meadow-pokemon {
+  scale: 1.15;
+}
+
+/* contour visible quand le lien est choisi au clavier */
+.flyer:focus-visible,
+a:focus-visible > .meadow-pokemon {
+  outline: 3px solid var(--red);
+  outline-offset: 4px;
+}
+
+/* nuages et pokemon immobiles si l'utilisateur a demandé moins d'animations */
+@media (prefers-reduced-motion: reduce) {
+  .cloud,
+  .flyer,
+  .flyer img {
+    animation-play-state: paused;
+  }
+}
+
+/* résultat de la recherche au centre du bandeau */
+#pokemon-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+#pokemon-container .pokemon-card {
+  width: 280px;
+  text-align: left;
+}
+
+/* sections de présentation */
+/* prairie sous le bandeau : colline (grass.svg) en haut, dégradé vert */
+#meadow {
+  position: relative;
+  background: linear-gradient(#8fd16a, #5fae45);
+}
+
+#meadow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 80px;
+  background: url(grass.svg) center bottom / 100% 100% no-repeat;
+}
+
+/* sur l'accueil, la prairie touche le pied de page */
+main:has(#meadow) + footer {
+  margin-top: 0;
+}
+
+/* pokemon éparpillés sur l'herbe, au-dessus et au-dessous des trois sections
+   (left = centre du pokemon en % de la largeur ; les plus lointains sont plus petits) */
+#meadow {
+  padding: 230px 0 190px;
+}
+
+.meadow-pokemon {
+  position: absolute;
+  transform: translateX(-50%);
+  image-rendering: pixelated;
+  /* petite ombre au sol */
+  filter: drop-shadow(0 8px 4px rgba(0, 0, 0, 0.25));
+}
+
+#mewtwo {
+  top: 50px;
+  left: 7%;
+  height: 150px;
+}
+
+#raikou {
+  top: 110px;
+  left: 22%;
+  height: 115px;
+}
+
+#jigglypuff {
+  top: 30px;
+  left: 35%;
+  height: 50px;
+}
+
+#pikachu {
+  top: 140px;
+  left: 45%;
+  height: 70px;
+}
+
+#entei {
+  top: 70px;
+  left: 58%;
+  height: 125px;
+}
+
+#suicune {
+  top: 120px;
+  left: 72%;
+  height: 115px;
+}
+
+#charizard {
+  top: 30px;
+  left: 86%;
+  height: 150px;
+}
+
+#mew {
+  top: 10px;
+  left: 96%;
+  height: 60px;
+}
+
+#snorlax {
+  bottom: 30px;
+  left: 8%;
+  height: 100px;
+}
+
+#charmander {
+  bottom: 70px;
+  left: 26%;
+  height: 70px;
+}
+
+#bulbasaur {
+  bottom: 30px;
+  left: 42%;
+  height: 60px;
+}
+
+#squirtle {
+  bottom: 80px;
+  left: 56%;
+  height: 62px;
+}
+
+#eevee {
+  bottom: 35px;
+  left: 72%;
+  height: 62px;
+}
+
+#psyduck {
+  bottom: 75px;
+  left: 90%;
+  height: 62px;
+}
+
+/* Mew flotte : pas d'ombre au sol */
+#mew {
+  filter: none;
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 60px 20px;
+}
+
+.intro article {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background-color: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.intro img {
+  width: 140px;
+  height: 140px;
+  align-self: center;
+}
+
+.intro h2 {
+  font-size: 24px;
+}
+
+.intro p {
+  flex: 1;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- page Discover ---------- */
+
+/* barre des filtres : région, rareté, puissance */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px 24px;
+  margin-bottom: 30px;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.filters select {
+  min-width: 190px;
+  padding: 8px 10px;
+  border: 2px solid var(--text);
+  background-color: var(--card);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.filters select:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#filter-hint {
+  color: var(--muted);
+  padding-bottom: 10px;
+}
+
+#load-more {
+  display: block;
+  margin: 40px auto 0;
+}
+
+/* ---------- page Details ---------- */
+
+#pokemon-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding-top: 30px;
+}
+
+#pokemon-details > img {
+  width: 100%;
+  max-width: 420px;
+  justify-self: center;
+  background-color: var(--card);
+  box-shadow: var(--shadow);
+}
+
+/* nom du pokemon et petite image animée à côté */
+.title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+/* sprite de jeu agrandi avec des pixels nets */
+.title-row .animated {
+  height: 72px;
+  image-rendering: pixelated;
+}
+
+#pokemon-details .info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#pokemon-details h1 {
+  font-size: 42px;
+  text-transform: capitalize;
+}
+
+#pokemon-details .description {
+  line-height: 1.6;
+}
+
+#pokemon-details .measures {
+  color: var(--muted);
+}
+
+/* statistiques sous forme de barres */
+.stats {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.stats li {
+  display: grid;
+  grid-template-columns: 130px 40px 1fr;
+  align-items: center;
+  gap: 10px;
+  text-transform: capitalize;
+}
+
+.stat-bar {
+  height: 10px;
+  background-color: var(--card);
+}
+
+.stat-bar span {
+  display: block;
+  height: 100%;
+  background-color: var(--cloud);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------- pied de page ---------- */
+
+footer {
+  background-color: var(--yellow);
+  padding: 40px 0 20px;
+  margin-top: 60px;
+  font-size: 15px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 40px;
+}
+
+.footer-brand img {
+  height: 60px;
+}
+
+.footer-brand p,
+footer h3 + p {
+  margin-top: 10px;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+footer h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+footer ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer p a {
+  text-decoration: underline;
+}
+
+.copyright {
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+/* ---------- tablette et téléphone ---------- */
+
+@media (max-width: 900px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  #pokemon-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  #meadow::before {
+    height: 40px;
+  }
+
+  /* sur téléphone : moins de pokemon, plus petits, au-dessus et au-dessous des sections */
+  #meadow {
+    padding: 190px 0 150px;
+  }
+
+  #raikou,
+  #jigglypuff,
+  #suicune,
+  #charizard,
+  #bulbasaur,
+  #eevee,
+  #psyduck {
+    display: none;
+  }
+
+  #mewtwo {
+    top: 40px;
+    bottom: auto;
+    left: 15%;
+    height: 100px;
+  }
+
+  #pikachu {
+    top: 130px;
+    bottom: auto;
+    left: 40%;
+    height: 55px;
+  }
+
+  #entei {
+    top: 60px;
+    bottom: auto;
+    left: 62%;
+    height: 85px;
+  }
+
+  #mew {
+    top: 20px;
+    bottom: auto;
+    left: 88%;
+    height: 45px;
+  }
+
+  #snorlax {
+    bottom: 25px;
+    top: auto;
+    left: 15%;
+    height: 70px;
+  }
+
+  #charmander {
+    bottom: 70px;
+    top: auto;
+    left: 45%;
+    height: 55px;
+  }
+
+  #squirtle {
+    bottom: 30px;
+    top: auto;
+    left: 80%;
+    height: 50px;
+  }
+
+  #top-btn {
+    right: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+  }
+
+  /* filtres les uns sous les autres sur téléphone */
+  .filters label,
+  .filters select {
+    width: 100%;
+  }
+
+  /* logo et liens sur la même ligne, recherche en dessous sur toute la largeur */
+  #nav {
+    padding: 6px 16px 10px;
+  }
+
+  #logo img {
+    height: 44px;
+  }
+
+  #nav-links {
+    gap: 20px;
+  }
+
+  #nav-links a {
+    font-size: 16px;
+  }
+
+  #search-form {
+    width: 100%;
+  }
+
+  #search-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #hero h1,
+  .page-title h1 {
+    font-size: 36px;
+  }
+
+  /* sur téléphone la barre de navigation mesure 111 px (recherche en dessous) */
+  #hero {
+    min-height: calc(100vh - 111px);
+    min-height: calc(100svh - 111px);
+    padding: 40px 20px 60px;
+  }
+
+  /* pokemon volants plus petits sur téléphone */
+  #lugia,
+  #ho-oh,
+  #rayquaza,
+  #articuno,
+  #zapdos,
+  #moltres {
+    width: 110px;
+  }
+
+  #latias,
+  #latios {
+    width: 90px;
+  }
+
+  /* nuages plus petits sur téléphone */
+  #cloud1 {
+    width: 130px;
+  }
+
+  #cloud2 {
+    width: 100px;
+  }
+
+  #cloud3 {
+    width: 150px;
+  }
+
+  #cloud4 {
+    width: 80px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .stats li {
+    grid-template-columns: 110px 34px 1fr;
+  }
+}

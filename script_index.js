@@ -1,67 +1,56 @@
-const serchInput = document.getElementById("search-input");
-const serchBtn = document.getElementById("search-btn");
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("search-input");
 const container = document.getElementById("pokemon-container");
-// creation de la carte pokemon
-function createPokemonCard(data) {
-  container.textContent = "";
 
-  const card = document.createElement("div");
-  card.classList.add("pokemon-card");
-  card.style.width = "300px";
+//recherche dans l api et je reutilise la function "createPokemonCard" de script_common.js
+function searchPokemon(event) {
+  event.preventDefault();
+  const value = searchInput.value.trim().toLowerCase();
 
-  const nom = document.createElement("h2");
-  nom.textContent = data.name.toUpperCase() + " #" + data.id;
+  if (value === "") {
+    showMessage(container, "Type a name or a number.");
+    return;
+  }
 
-  const img = document.createElement("img");
-  img.src = data.sprites.other["official-artwork"].front_default;
-  img.alt = data.name;
-  img.style.width = "200px";
+  showMessage(container, "Loading...");
 
-  const type = document.createElement("p");
-
-  type.textContent = "Type: " + data.types[0].type.name;
-
-  const btnDetails = document.createElement("button");
-  btnDetails.textContent = "Voir details";
-  btnDetails.style.padding = "10px";
-  btnDetails.style.backgroundColor = "red";
-  btnDetails.style.color = "white";
-  // button qui renvoi a la page details
-  btnDetails.addEventListener("click", () => {
-    window.location.href = `details.html?id=${data.id}`;
-  });
-
-  const btnTeam = document.createElement("button");
-  btnTeam.textContent = "Ajouter à l'equipe";
-  btnTeam.style.padding = "10px";
-  btnTeam.style.backgroundColor = "white";
-  btnTeam.addEventListener("click", () => {});
-
-  card.appendChild(btnDetails);
-  card.appendChild(btnTeam);
-  card.appendChild(img);
-  card.appendChild(nom);
-  card.appendChild(type);
-  container.appendChild(card);
-}
-
-//recherche dans l api et je reutilise ma function precedent "createPokemonCard"
-function searchPokemon() {
-  const value = serchInput.value.toLowerCase();
-
-  fetch("https://pokeapi.co/api/v2/pokemon/" + value)
+  fetch(API_URL + "pokemon/" + encodeURIComponent(value))
     .then((response) => {
+      // l'api renvoie 404 quand le pokemon n'existe pas
+      if (response.status === 404) {
+        throw new Error("not found");
+      }
+      if (!response.ok) {
+        throw new Error("api");
+      }
       return response.json();
     })
     .then((data) => {
-      createPokemonCard(data);
+      const pokemon = simplifyPokemon(data);
+      const card = createPokemonCard(pokemon);
+      card.appendChild(createTeamButton(pokemon));
+      container.textContent = "";
+      container.appendChild(card);
+      // dernière recherche gardée pour la retrouver au retour sur l'accueil
+      sessionStorage.setItem("lastSearch", value);
+    })
+    .catch((error) => {
+      if (error.message === "not found") {
+        showMessage(container, `No Pokémon found for "${value}".`);
+      } else {
+        showMessage(
+          container,
+          "The Pokémon API is not responding. Try again later.",
+        );
+      }
     });
 }
 
-serchBtn.addEventListener("click", searchPokemon);
+searchForm.addEventListener("submit", searchPokemon);
 
-serchInput.addEventListener("keypress", function (a) {
-  if (a.key === "Enter") {
-    searchPokemon();
-  }
-});
+// au retour sur l'accueil, on relance la dernière recherche
+const lastSearch = sessionStorage.getItem("lastSearch");
+if (isBackNavigation() && lastSearch) {
+  searchInput.value = lastSearch;
+  searchPokemon(new Event("submit"));
+}
